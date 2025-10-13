@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 
 int main()
 {
+    uid_t ruid = getuid();
+    uid_t euid = geteuid();
+
+    seteuid(ruid);
+
     char * fn = "/tmp/XYZ";
     char buffer[60];
     FILE *fp;
@@ -18,5 +24,7 @@ int main()
        fclose(fp);
    }
    else printf("No permission \n");
+
+   seteuid(euid);
 }
 
